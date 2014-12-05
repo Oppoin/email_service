@@ -1,5 +1,8 @@
-email_service
-=============
+#Email Service Plugin
 
 Email Service plugin for CakePHP.
-# How it works
+
+## Requirements
+
+* CakePHP 2.5+
+* PHP 5.2.8+
