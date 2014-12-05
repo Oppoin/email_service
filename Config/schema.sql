@@ -20,12 +20,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table plugins_email_service_email_alerts
+# Dump of table email_alerts
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `plugins_email_service_email_alerts`;
+DROP TABLE IF EXISTS `email_alerts`;
 
-CREATE TABLE `plugins_email_service_email_alerts` (
+CREATE TABLE `email_alerts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
   `sender` text,
