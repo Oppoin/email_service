@@ -5,7 +5,7 @@ App::uses('EmailAlert', 'EmailService.Model');
  * EmailAlert Test Case
  *
  */
-class EmailAlertTest extends CakeTestCase {
+class EmailServiceTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -25,7 +25,7 @@ class EmailAlertTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->EmailAlert = ClassRegistry::init('EmailService.EmailAlert');
+		$this->EmailService = new EmailService('default');
 	}
 
 /**
@@ -34,16 +34,9 @@ class EmailAlertTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->EmailAlert);
+		unset($this->EmailService);
 
 		parent::tearDown();
 	}
 
-	public function testPrepareSenderRecipients() {
-		// GIVEN we run for DailyOutstandingNoOBEmailAlert
-		$senderRecipients = $this->EmailAlert->prepareSenderRecipients('DailyOutstandingNoOBEmailAlert');
-		// THEN we expect to see
-		extract($senderRecipients);
-		$this->assertEqual(['full_name' => 'RUPERT', 'email' => 'kimsia@oppoin.com'], $sender);
-	}
 }
