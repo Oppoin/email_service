@@ -3,6 +3,7 @@ App::uses('CakeEmail', 'Network/Email');
 App::uses('Router', 'Routing/Router');
 App::uses('Configure', 'Core/Configure');
 App::uses('ClassRegistry', 'Utility');
+App::uses('EmailAlert', 'EmailService.Model');
 /**
  * This is the email service that can be used to send all email alerts.
  *
@@ -37,29 +38,22 @@ class EmailService {
 	private $bcc;
 	private $cc;
 	private $email;
-	private $emailConfig = 'gmail';
+	private $emailConfig = 'default';
 	private $emailFormat = null;
 	private $from;
-	private $httpHost    = 'quotation.sg.ao.ericsson.se';
-	private $sender      = 'do-not-reply@oppoin.com';
-	private $subject     = 'foobar subject';
+	private $httpHost    = 'www.example.com'; // This should overwritten by constructor
+	private $sender      = 'do-not-reply@example.com'; // This should overwritten by setEmailAlert
+	private $subject     = 'foobar subject'; // This should overwritten by setEmailAlert
 	private $template;
 	private $to;
-
-	private $replaceEmailDomain = array(
-		"ericsson.com" => "oppoin.com",
-		"singtel.com" => "oppoin.com"
-	);
-
-	private $model = null;
 	private $debug = false;
 
-	public function __construct($emailConfig, $emailAlertName, $test = false) {
+	public function __construct($emailConfig) {
 		$this->emailConfig = $emailConfig;
 	}
 
 	public function setEmailAlert($emailAlertName, $test = false) {
-		$this->EmailAlert  = ClassRegistry::init('EmailAlert');
+		$this->EmailAlert = ClassRegistry::init('EmailService.EmailAlert');
 		$senderRecipients = $this->EmailAlert->prepareSenderRecipients($emailAlertName);
 		extract($senderRecipients);
 
@@ -177,6 +171,14 @@ class EmailService {
  */
 	public function getBccList() {
 		return $this->bcc();
+	}
+
+/**
+ * set bcclist
+ * @param $bccList.. expecting a json_string
+ */
+	public function setHttpHost($httpHost) {
+		$this->HttpHost = $httpHost;
 	}
 
 /**

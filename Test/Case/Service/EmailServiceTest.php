@@ -1,12 +1,49 @@
+<?php
+App::uses('EmailAlert', 'EmailService.Model');
+
 /**
- * Testing file of Class EmailService
+ * EmailAlert Test Case
  *
  */
+class EmailAlertTest extends CakeTestCase {
 
-class EmailService {
-// fixtures
+/**
+ * Fixtures
+ *
+ * @var array
+ */
+	public $fixtures = array(
+		'plugin.email_service.email_alert'
+	);
 
-// function to set up
+	public $plugin = 'EmailService';
 
-// Functions to test
+/**
+ * setUp method
+ *
+ * @return void
+ */
+	public function setUp() {
+		parent::setUp();
+		$this->EmailAlert = ClassRegistry::init('EmailService.EmailAlert');
+	}
+
+/**
+ * tearDown method
+ *
+ * @return void
+ */
+	public function tearDown() {
+		unset($this->EmailAlert);
+
+		parent::tearDown();
+	}
+
+	public function testPrepareSenderRecipients() {
+		// GIVEN we run for DailyOutstandingNoOBEmailAlert
+		$senderRecipients = $this->EmailAlert->prepareSenderRecipients('DailyOutstandingNoOBEmailAlert');
+		// THEN we expect to see
+		extract($senderRecipients);
+		$this->assertEqual(['full_name' => 'RUPERT', 'email' => 'kimsia@oppoin.com'], $sender);
+	}
 }
